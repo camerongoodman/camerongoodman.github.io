@@ -1,0 +1,35 @@
+{{- with site.Params.homeInfoParams }}
+<article class="first-entry home-info">
+    <div class="home-info-titlebar" aria-hidden="true">
+        <div class="window-controls"><span></span><span></span><span></span></div>
+        <span>CAM_OS // PROFILE.EXE</span>
+        <span class="system-status">ONLINE</span>
+    </div>
+    <div class="home-info-screen">
+        <p class="home-info-kicker"><span aria-hidden="true">/home/cam $</span></p>
+        <header class="entry-header">
+            <h1>
+                {{- .Title | markdownify -}}
+                <span class="terminal-cursor" aria-hidden="true"></span>
+            </h1>
+        </header>
+        <div class="entry-content md-content">
+            {{ $opts := dict "display" "block" }}
+            {{ .Content | $.Page.RenderString $opts }}
+        </div>
+        <div class="home-info-topics" aria-label="Areas of expertise">
+            <span>CI/CD</span>
+            <span>SALESFORCE</span>
+            <span>AUTOMATION</span>
+            <span>AI TOOLING</span>
+        </div>
+        <footer class="entry-footer">
+            {{ partial "social_icons.html" (dict "align" site.Params.homeInfoParams.AlignSocialIconsTo) }}
+            <a class="home-info-rss" href="{{ "index.xml" | absURL }}" title="RSS feed" aria-label="RSS feed">
+                {{- partial "svg.html" (dict "name" "rss") -}}
+                <span>RSS</span>
+            </a>
+        </footer>
+    </div>
+</article>
+{{- end -}}

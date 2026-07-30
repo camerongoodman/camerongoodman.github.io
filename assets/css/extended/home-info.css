@@ -1,0 +1,15 @@
+.home-info .entry-header h1 {
+    display: flex;
+    align-items: center;
+    gap: 0.35em;
+}
+
+.home-info-rss {
+    display: inline-flex;
+    flex-shrink: 0;
+}
+
+.home-info-rss svg {
+    width: 0.75em;
+    height: 0.75em;
+}

@@ -1,0 +1,80 @@
+baseURL = "https://camerongoodman.github.io/"
+title = "Cameron Goodman"
+theme = "PaperMod"
+copyright = "© Cameron Goodman"
+
+enableRobotsTXT = true
+enableGitInfo = false
+summaryLength = 20
+defaultContentLanguage = "en"
+
+[services.googleAnalytics]
+ID = "G-YW48WDNBML"
+
+[pagination]
+pagerSize = 5
+
+[outputs]
+home = ["HTML", "RSS", "JSON"] # JSON needed for the /search page
+
+[params]
+env = "production" # enable minified assets in production
+title = "Cam Goodman"
+description = "Developer, DevOps specialist writing about automation, AI, and software development."
+author = "Cameron Goodman"
+keywords = ["DevOps", "Salesforce", "CI/CD", "Automation", "AI", "Development"]
+images = ["/og.png"]
+
+# Use the dark palette by default while keeping the light theme available.
+defaultTheme = "dark"
+
+[params.label]
+text = "Cam Goodman"
+icon = "/android-chrome-192x192.png"
+iconHeight = 32
+
+[params.assets]
+theme_color = "#06110f"
+msapplication_TileColor = "#06110f"
+
+# post features
+ShowReadingTime = true
+ShowShareButtons = true
+ShareButtons = ["linkedin", "x"]
+ShowPostNavLinks = true
+ShowBreadCrumbs = true
+ShowCodeCopyButtons = true
+ShowRssButtonInSectionTermList = true
+ShowToc = true
+TocOpen = false
+UseHugoToc = true
+comments = false
+
+# homepage intro box
+[params.homeInfoParams]
+Title = "Hi, I'm Cam"
+Content = "I am a Developer and DevOps specialist. I write about automation, AI, and software development."
+
+[[params.socialIcons]]
+name = "github"
+url = "https://github.com/camerongoodman"
+
+[[params.socialIcons]]
+name = "linkedin"
+url = "https://www.linkedin.com/"
+
+# navigation
+[[menu.main]]
+name = "Posts"
+url = "/posts/"
+weight = 1
+
+[[menu.main]]
+name = "About"
+url = "/about/"
+weight = 2
+
+[[menu.main]]
+name = "Search"
+url = "/search/"
+weight = 3
