@@ -1,0 +1,4 @@
+{{ define "main" }}
+{{- $home := dict "label" "Home" "icon" "arrow" "url" ("/" | relURL) "address" site.Title }}
+{{ partial "board.html" (dict "title" "Page not found" "lines" (slice "NOT" "FOUND") "rows" (slice $home)) }}
+{{ end }}

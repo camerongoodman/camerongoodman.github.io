@@ -1,0 +1,33 @@
+baseURL = "https://www.camgoodman.com/"
+title = "Cam Goodman"
+locale = "en"
+enableRobotsTXT = true
+
+# One page for now. Remove "section" and "rss" from this list when posts arrive.
+disableKinds = ["taxonomy", "term", "section", "rss"]
+
+[services.googleAnalytics]
+ID = "G-YW48WDNBML"
+
+[params]
+description = "Cam Goodman, Senior DevOps & AI Specialist. CI/CD pipelines, automation, AI, and software delivery."
+themeColor = "#070c16"
+
+# Contact links, in display order. `icon` names an SVG in layouts/_partials/icon.html.
+[[params.contacts]]
+label = "Email"
+icon = "email"
+url = "mailto:cam@camgoodman.com"
+address = "cam@camgoodman.com"
+
+[[params.contacts]]
+label = "LinkedIn"
+icon = "linkedin"
+url = "https://www.linkedin.com/in/cameron-goodman-/"
+address = "in/cameron-goodman-"
+
+[[params.contacts]]
+label = "GitHub"
+icon = "github"
+url = "https://github.com/camerongoodman"
+address = "github.com/camerongoodman"

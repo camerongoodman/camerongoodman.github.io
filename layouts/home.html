@@ -1,0 +1,3 @@
+{{ define "main" }}
+{{ partial "board.html" (dict "title" site.Title "lines" (slice "CAM" "GOODMAN") "rows" site.Params.contacts) }}
+{{ end }}

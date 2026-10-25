@@ -1,0 +1,40 @@
+{{- /* Context: dict "title" (accessible h1), "lines" (two 7-character name rows), "rows" (slice of dicts: label, icon, url, address). */ -}}
+<main class="concourse">
+  <section class="board" aria-labelledby="board-title">
+    <h1 class="name" id="board-title">
+      <span class="sr-only">{{ .title }}</span>
+      {{- range .lines }}
+      <span class="flaps name-row" aria-hidden="true">{{ partial "flaps.html" (printf "%-7s" .) }}</span>
+      {{- end }}
+    </h1>
+
+    <div class="clock" aria-hidden="true">
+      <span class="flaps clock-row" data-clock>
+        {{- partial "flaps.html" "--" }}<span class="colon">:</span>{{ partial "flaps.html" "--" -}}
+      </span>
+      <span class="label">PCT</span>
+    </div>
+
+    <nav class="departures" aria-label="Contact">
+      <div class="cols" aria-hidden="true">
+        <span></span><span>Destination</span><span class="col-addr">Address</span><span class="col-status">Status</span>
+      </div>
+      <ul class="rows">
+        {{- range .rows }}
+        <li>
+          <a class="row" href="{{ .url | safeURL }}" aria-label="{{ .label }}: {{ .address }}" data-row
+            {{- if hasPrefix .url "https://" }} rel="me noopener"{{ end }}>
+            <span class="tile">{{ partial "icon.html" .icon }}</span>
+            <span class="flaps dest" aria-hidden="true">{{ partial "flaps.html" (printf "%-8s" (upper .label)) }}</span>
+            <span class="flaps addr" aria-hidden="true">{{ partial "flaps.html" (printf "%-25s" (upper .address)) }}</span>
+            <span class="flaps status" aria-hidden="true" data-status>{{ partial "flaps.html" "OPEN    " }}</span>
+            <span class="lamp" aria-hidden="true"></span>
+          </a>
+        </li>
+        {{- end }}
+      </ul>
+    </nav>
+  </section>
+</main>
+{{- $js := resources.Get "js/board.js" | minify | fingerprint }}
+<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>

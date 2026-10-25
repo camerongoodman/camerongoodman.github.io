@@ -1,0 +1,14 @@
+{
+  "name": "camerongoodman.github.io",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Personal site of Cam Goodman, built with Hugo",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "packageManager": "npm@12.2.1",
+  "scripts": {
+    "dev": "hugo server -D",
+    "build": "hugo --gc --minify"
+  }
+}

@@ -1,0 +1,4 @@
+{{- /* One split-flap cell per character of the string passed in. */ -}}
+{{- range split . "" -}}
+<span class="flap" data-ch="{{ . }}"><span class="half top"><b>{{ . }}</b></span><span class="half bottom"><b>{{ . }}</b></span></span>
+{{- end -}}
