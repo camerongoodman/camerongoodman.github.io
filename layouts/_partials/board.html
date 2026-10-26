@@ -1,5 +1,7 @@
 {{- /* Context: dict "title" (accessible h1), "lines" (two 7-character name rows), "rows" (slice of dicts: label, icon, url, address). */ -}}
 <main class="concourse">
+  <div class="atmosphere" aria-hidden="true"><span class="mist mist-far"></span></div>
+  <div class="spill" aria-hidden="true"><span class="train"></span></div>
   <section class="board" aria-labelledby="board-title">
     <h1 class="name" id="board-title">
       <span class="sr-only">{{ .title }}</span>
@@ -34,7 +36,11 @@
         {{- end }}
       </ul>
     </nav>
+    <div class="glint" aria-hidden="true"><span class="train"></span></div>
   </section>
+  <div class="veil" aria-hidden="true"><span class="mist mist-near"></span></div>
 </main>
-{{- $js := resources.Get "js/board.js" | minify | fingerprint }}
+{{- range slice "js/board.js" "js/lights.js" }}
+{{- $js := resources.Get . | minify | fingerprint }}
 <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+{{- end }}

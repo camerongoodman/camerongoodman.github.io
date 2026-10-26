@@ -71,11 +71,93 @@ body { margin: 0; }
   grid-template-columns: minmax(0, 1fr) auto;
   grid-template-areas: "name clock" "rows rows";
   row-gap: clamp(24px, 3.4cqi, 44px);
+  position: relative;
   width: var(--bw);
   padding: var(--pad);
   background: var(--frame);
   border: 1px solid var(--frame-rule);
   border-radius: 10px;
+}
+
+/* The board's own light, caught by the mist around it. */
+.board::before {
+  content: "";
+  position: absolute;
+  inset: -22% -14% -30%;
+  z-index: -1;
+  background: radial-gradient(closest-side, rgb(120 148 205 / 0.16), rgb(120 148 205 / 0.05) 60%, transparent);
+  pointer-events: none;
+}
+
+/* Night mist */
+
+.atmosphere,
+.spill,
+.veil {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.atmosphere,
+.spill { z-index: -1; }
+.veil { z-index: 6; }
+
+.atmosphere {
+  background:
+    linear-gradient(to top, rgb(70 88 122 / 0.22), transparent 45%),
+    radial-gradient(120% 80% at 50% 50%, transparent 55%, rgb(2 4 9 / 0.55));
+}
+
+.mist {
+  position: absolute;
+  inset: -30%;
+  will-change: transform;
+}
+.mist-far {
+  background:
+    radial-gradient(38% 26% at 28% 38%, rgb(96 118 160 / 0.2), transparent 70%),
+    radial-gradient(34% 24% at 74% 60%, rgb(86 106 146 / 0.18), transparent 70%),
+    radial-gradient(60% 20% at 50% 82%, rgb(112 132 172 / 0.2), transparent 75%);
+  animation: drift-far 95s ease-in-out infinite alternate;
+}
+.mist-near {
+  background:
+    radial-gradient(30% 18% at 62% 34%, rgb(150 168 200 / 0.07), transparent 70%),
+    radial-gradient(44% 22% at 26% 70%, rgb(140 160 196 / 0.09), transparent 70%),
+    radial-gradient(50% 14% at 70% 84%, rgb(150 168 200 / 0.08), transparent 75%);
+  animation: drift-near 70s ease-in-out infinite alternate;
+}
+@keyframes drift-far { to { transform: translate3d(7%, -3%, 0) scale(1.08); } }
+@keyframes drift-near { to { transform: translate3d(-9%, 4%, 0) scale(1.12); } }
+
+/* A passing train's lights: spilled into the mist, and reflected off the board. Driven by lights.js. */
+
+.train {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  will-change: transform;
+}
+.spill .train {
+  mask-image: linear-gradient(to bottom, transparent 5%, #000 38%, #000 75%, transparent);
+  opacity: 0.9;
+}
+.glint {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  overflow: hidden;
+  border-radius: inherit;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+.glint .train {
+  top: -12%;
+  bottom: -12%;
+  mask-image: linear-gradient(to bottom, rgb(0 0 0 / 0.7), #000 40%, rgb(0 0 0 / 0.8));
 }
 
 /* Split-flap cell */
@@ -132,7 +214,14 @@ body { margin: 0; }
   background: var(--flap-bottom);
   border-radius: 0 0 calc(var(--w) * 0.1) calc(var(--w) * 0.1);
 }
-.half b { display: block; height: var(--h); font-weight: inherit; }
+.half b {
+  display: block;
+  height: var(--h);
+  font-weight: inherit;
+  text-shadow:
+    0 0 calc(var(--h) * 0.05) color-mix(in srgb, currentColor 45%, transparent),
+    0 0 calc(var(--h) * 0.18) color-mix(in srgb, currentColor 18%, transparent);
+}
 .half.bottom b { transform: translateY(-50%); }
 
 .leaf { z-index: 2; backface-visibility: hidden; }
@@ -187,6 +276,7 @@ body { margin: 0; }
   line-height: calc(var(--kw) * 1.45);
   text-align: center;
   color: var(--orange);
+  text-shadow: 0 0 6px rgb(255 106 26 / 0.7), 0 0 18px rgb(255 106 26 / 0.35);
 }
 
 .label,
@@ -254,12 +344,16 @@ body { margin: 0; }
   height: 12px;
   border-radius: 50%;
   background: var(--lamp-off);
-  transition: background-color 200ms var(--ease-out);
+  transition: background-color 200ms var(--ease-out), box-shadow 200ms var(--ease-out);
 }
 
 .row.is-boarding .tile,
 .row.is-boarding .status .flap { color: var(--orange); }
-.row.is-boarding .lamp { background: var(--orange); }
+.row.is-boarding .tile svg { filter: drop-shadow(0 0 4px rgb(255 106 26 / 0.6)); }
+.row.is-boarding .lamp {
+  background: var(--orange);
+  box-shadow: 0 0 6px rgb(255 106 26 / 0.9), 0 0 22px rgb(255 106 26 / 0.45), 0 0 48px rgb(255 106 26 / 0.2);
+}
 
 /* Narrower boards drop columns, widest first. */
 
@@ -290,4 +384,5 @@ body { margin: 0; }
 
 @media (prefers-reduced-motion: reduce) {
   .row, .tile, .lamp { transition: none; }
+  .mist { animation: none; }
 }
