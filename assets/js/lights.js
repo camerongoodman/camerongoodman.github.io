@@ -53,7 +53,7 @@
     const offset = board.getBoundingClientRect().left;
     const from = ltr ? -width : innerWidth;
     const to = ltr ? innerWidth : -width;
-    const duration = ((width + innerWidth) / unit) * rand(700, 900);
+    const duration = ((width + innerWidth) / unit) * rand(500, 650);
     const background = `linear-gradient(to ${ltr ? "left" : "right"}, ${stops})`;
 
     const run = (el, shift) => {
